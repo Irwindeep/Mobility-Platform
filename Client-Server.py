@@ -1,7 +1,11 @@
 import os
 
-global reg_updater
+global reg_updater, reg_time
 reg_updater = 0
+reg_time = 0
+global reg_name, reg_uid
+reg_name = ''
+reg_uid = ''
 
 
 class Main_Menu():
@@ -27,12 +31,12 @@ class Main_Menu():
 
 class Registration():
     def register(self):
-        global reg_updater
+        global reg_updater, reg_name, reg_uid
         print("\n----Tech-Driven Mobility Platform----\n")
         name = input("Enter your name: ")
         uid = input("Enter a UID of yours (Roll No. given by IITJ): ")
         uid = uid.upper()
-        file = open("/Registrations.txt", "r+")
+        file = open("./Registrations.txt", "r+")
         marker = 0
         i = 0
         for lines in file:
@@ -49,6 +53,8 @@ class Registration():
         if proceed == 'y' or proceed == 'Y':
             os.system("cls")
             reg_updater += 1
+            reg_name += name
+            reg_uid += uid
             Bicycles().cycles()
         else:
             Main_Menu().main_menu()
@@ -82,20 +88,39 @@ class Bicycles(Registration):
 
 class Payment():
     def pay(self):
+        global reg_time
         print("\n----Tech-Driven Mobility Platform----\n")
         print("Price: Rs.100/hour for each bicycle")
         time = float(input("Enter the duration (in hours) for which you wish to rent the bicycle: "))
+        reg_time += time
         print("Total Rent: Rs.", 100*time)
         print("GST: Rs.", 5*time)
         print("Amount to be paid: Rs.", 105*time)
         proceed = input("Do you wish to proceed(y or n): ")
         if proceed == 'y' or proceed == 'Y':
             os.system("cls")
+            Payment().query()
         else:
             Main_Menu().main_menu()
 
+    def query(self):
+        print("\n----Tech-Driven Mobility Platform----\n")
+        print("Confirm Your Name and UID:")
+        print("Name: "+reg_name+"\nUID: "+reg_uid)
+        x = input("Press 1 to confirm (Press any other key to change): ")
+        if x == '1':
+            print("Username and UID has been confirmed, kindly make the required payment: ")
+            print("Total Rent: Rs.", 100 * reg_time)
+            print("GST: Rs.", 5 * reg_time)
+            print("Amount to be paid: Rs.", 105 * reg_time)
+            os.system("python ./query.py")
+        else:
+            os.system("cls")
+            Registration().register()
 
-welcome = '/Welcome.mp4'
+
+
+welcome = './Welcome.mp4'
 cmd = f'ffplay -autoexit {welcome}'
 os.system(cmd)
 os.system("cls")
