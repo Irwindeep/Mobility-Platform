@@ -1,11 +1,6 @@
 import random
 
-menu="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUV!@#$%^&*()123456789"
-
-password=""
-for x in range(0,7):
-    password_menu=random.choice(menu)
-    password=password+password_menu
-
-print("Your password is: ",password)
-print("Do not share this password with anyone.")
+n = random.randint(1000, 9999)
+print("\nThanks for making the purchase.")
+print("Passkey to the Lock is: "+str(n))
+print("Do not share this key with anyone.")
