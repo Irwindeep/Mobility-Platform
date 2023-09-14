@@ -19,7 +19,7 @@ while trial < 4:
         break
     else:
         print("Invalid Code, Try again ("+str(4-trial)+" trials left)")
-        if trial == 3:
+        if trial == 4:
             print("Maximum Number of Attempts Reached")
             break
         trial += 1
