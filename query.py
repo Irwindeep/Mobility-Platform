@@ -11,7 +11,7 @@ class SMTH():
 
 
 trial = 0
-while trial < 4:
+while trial < 5:
     y = SMTH().smth()
     if y == True:
         print("Payment Has been made successfully")
