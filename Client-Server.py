@@ -1,4 +1,6 @@
 import os
+import sys
+from cryptography.fernet import Fernet
 
 global reg_updater, reg_time
 reg_updater = 0
@@ -6,6 +8,11 @@ reg_time = 0
 global reg_name, reg_uid
 reg_name = ''
 reg_uid = ''
+
+def decrypt_data(key, data):
+    cipher_suite = Fernet(key)
+    decrypted_data = cipher_suite.decrypt(data).decode()
+    return decrypted_data
 
 
 class Main_Menu():
@@ -114,14 +121,21 @@ class Payment():
             print("GST: Rs.", 5 * reg_time)
             print("Amount to be paid: Rs.", 105 * reg_time)
             os.system("python ./query.py")
+            if len(sys.argv) != 3:
+                sys.exit(1)
+            key = sys.argv[1]
+            data = sys.argv[2]
+            passkey = decrypt_data(key, data)
+            print(passkey)
         else:
             os.system("cls")
             Registration().register()
 
 
 
-welcome = './Welcome.mp4'
-cmd = f'ffplay -autoexit {welcome}'
-os.system(cmd)
-os.system("cls")
-Main_Menu().main_menu()
+if __name__=="__main__":
+    welcome = './Welcome.mp4'
+    cmd = f'ffplay -autoexit {welcome}'
+    os.system(cmd)
+    os.system("cls")
+    Main_Menu().main_menu()

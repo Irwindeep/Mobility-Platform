@@ -1,4 +1,5 @@
 import os
+import paramiko
 
 
 class SMTH():
@@ -15,7 +16,15 @@ while trial < 5:
     y = SMTH().smth()
     if y == True:
         print("Payment Has been made successfully")
-        os.system("python ./Host.py")
+        usr = "Irwin"
+        pas = "Raspberry"
+        ip = "192.168.137.234"
+        ssh = paramiko.SSHClient()
+        ssh.load_system_host_keys()
+        ssh.connect(ip, username=usr, passphrase=pas)
+        ssh.exec_command(f"python3 ~/Projects/Host.py")
+        ssh.close()
+
         break
     else:
         print("Invalid Code, Try again ("+str(4-trial)+" trials left)")
