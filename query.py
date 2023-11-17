@@ -31,3 +31,5 @@ while trial < 5:
             print("Maximum Number of Attempts Reached")
             break
         trial += 1
+else:
+    exit(1)
