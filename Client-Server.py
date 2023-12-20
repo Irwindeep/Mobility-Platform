@@ -134,8 +134,5 @@ class Payment():
 
 
 if __name__=="__main__":
-    welcome = './Welcome.mp4'
-    cmd = f'ffplay -autoexit {welcome}'
-    os.system(cmd)
     os.system("cls")
     Main_Menu().main_menu()
